@@ -2,14 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_purple">
+    android:background="#F1F1F1">
 
     <TextView
+        android:id="@+id/sensorTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sensor toevoegen Fragment"
-        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Sensoren"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonIn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textColor="#fff"/>
+        android:layout_marginTop="40dp"
+        android:background="#26c281"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp"
+        android:text="Voeg een sensor toe"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
 
 </RelativeLayout>
