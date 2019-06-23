@@ -9,10 +9,10 @@
         android:id="@+id/room"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#000"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:textColor="#000"
         android:textSize="30sp" />
 
     <ImageView
@@ -21,19 +21,19 @@
         android:layout_height="123dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/check"
-        android:contentDescription="TODO" />
+        android:contentDescription="TODO"
+        app:srcCompat="@drawable/check" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status: veilig"
-        android:textColor="#000"
-        android:textSize="22dp"
         android:layout_below="@id/check"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:text="Status: veilig"
+        android:textColor="#000"
+        android:textSize="22dp" />
 
     <TextView
         android:id="@+id/temp"
@@ -42,8 +42,8 @@
         android:layout_below="@id/status"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:textSize="22dp"
-        android:textColor="#000"/>
+        android:textColor="#000"
+        android:textSize="22dp" />
 
     <TextView
         android:id="@+id/datumAdd"
@@ -51,12 +51,42 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/temp"
         android:layout_centerHorizontal="true"
-        android:text="Datum toegevoegd: 26-06-2019"
         android:layout_marginTop="16dp"
+        android:text="Datum toegevoegd: 26-06-2019"
+        android:textColor="#838383"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/buttonIn"
+        android:textAllCaps="false"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/datumAdd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="#26c281"
+        android:clickable="false"
+        android:padding="10dp"
         android:textSize="20dp"
-        android:textColor="#838383"/>
+        android:text="Ingeschakeld"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#fff" />
 
-
+    <Button
+        android:id="@+id/schakel_uit"
+        android:textAllCaps="false"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonIn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:background="#ACACAC"
+        android:clickable="false"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:text="Schakel uit"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#fff" />
 
 
 </RelativeLayout>
