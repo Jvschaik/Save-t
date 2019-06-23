@@ -8,5 +8,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="status">TextView</string>
     <string name="insch">Button</string>
+    <string name="infoText">Veiligheid is waar wij voor staan. De Save-T applicatie is ontwikkeld in 2019 in
+        samenwerking met de Rotterdamse brandweer,
+        om de veiligheid van gezinnen met kinderen te garanderen.
+        Mocht u technische vragen of problemen hebben over de applicatie?
+        Dan kunt u contact opnemen met de Save-T helpdesk.</string>
 
 </resources>
