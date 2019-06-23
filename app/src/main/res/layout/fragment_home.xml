@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    android:background="#F1F1F1">
 
     <GridLayout
         android:id="@+id/grid_view"
@@ -28,7 +29,9 @@
             android:background="#26c281"
             android:stateListAnimator="@null"
             android:text="Woonkamer"
-            android:textColor="#fff" />
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/slaapkamer"
@@ -42,7 +45,9 @@
             android:background="#26c281"
             android:stateListAnimator="@null"
             android:text="Slaapkamer"
-            android:textColor="#fff" />
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/keuken"
@@ -56,7 +61,9 @@
             android:background="#26c281"
             android:stateListAnimator="@null"
             android:text="Keuken"
-            android:textColor="#fff" />
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/badkamer"
@@ -70,7 +77,9 @@
             android:background="#26c281"
             android:stateListAnimator="@null"
             android:text="Badkamer"
-            android:textColor="#fff" />
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/kinderkamer"
@@ -84,7 +93,9 @@
             android:background="#26c281"
             android:stateListAnimator="@null"
             android:text="Kinderkamer"
-            android:textColor="#fff" />
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/zolder"
@@ -98,8 +109,22 @@
             android:background="#26c281"
             android:stateListAnimator="@null"
             android:text="Zolder"
-            android:textColor="#fff" />
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
     </GridLayout>
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grid_view"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:text="Save-T 1.1.0"
+        android:textAllCaps="true"
+        android:textColor="#8B8B8B"
+        android:textSize="15dp" />
 
 </RelativeLayout>

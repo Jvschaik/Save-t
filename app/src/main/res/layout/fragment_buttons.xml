@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    android:background="#F1F1F1">
 
     <TextView
         android:id="@+id/room"
@@ -87,6 +87,5 @@
         android:text="Schakel uit"
         style="?android:attr/borderlessButtonStyle"
         android:textColor="#fff" />
-
 
 </RelativeLayout>
