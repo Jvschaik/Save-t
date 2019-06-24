@@ -15,23 +15,18 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-
 import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
-
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-//    public MyFirebaseMessagingService() {
-//
-//        FirebaseMessaging.getInstance().subscribeToTopic("all");
-//
-//    }
 
     private static final String TAG = "FCM Service";
     @Override
@@ -47,8 +42,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
         Config.title = data.get("title");
         Config.content = data.get("content");
-        Config.imageUrl = data.get("imageUrl");
-        Config.gameUrl = data.get("gameUrl");
+        Config.fireSize = data.get("fireSize");
+        Config.latitude = data.get("latitude");
+        Config.longitude = data.get("longitude");
+        Config.inhabitants = data.get("inhabitants");
+
+        sendNotification();
+
+        Intent dialogIntent = new Intent(this, MainActivity.class);
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(dialogIntent);
+
     }
 
     @Override
@@ -57,47 +61,52 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.e("NEW_TOKEN",s);
     }
 
-//    private void sendNotification(Bitmap bitmap){
-//
-//
-//        NotificationCompat.BigPictureStyle style = new NotificationCompat.BigPictureStyle();
-//        style.bigPicture(bitmap);
-//
-//        Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//
-//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
-//
-//        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-//        String NOTIFICATION_CHANNEL_ID = "101";
-//
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-//            @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Notification", NotificationManager.IMPORTANCE_MAX);
-//
-//            //Configure Notification Channel
-//            notificationChannel.setDescription("Game Notifications");
-//            notificationChannel.enableLights(true);
-//            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-//            notificationChannel.enableVibration(true);
-//
-//            notificationManager.createNotificationChannel(notificationChannel);
-//        }
-//        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
-//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-//                .setSmallIcon(R.mipmap.ic_launcher_round)
-//                .setContentTitle(Config.title)
-//                .setAutoCancel(true)
-//                .setSound(defaultSound)
-//                .setContentText(Config.content)
-//                .setContentIntent(pendingIntent)
-//                .setStyle(style)
-//                .setLargeIcon(b)
-//                .setWhen(System.currentTimeMillis())
-//                .setPriority(Notification.PRIORITY_MAX);
-//
-//        notificationManager.notify(1, notificationBuilder.build());
-//
-//    }
+    public static String getToken(Context context) {
+        return context.getSharedPreferences("_", MODE_PRIVATE).getString("fb", "empty");
+    }
+
+    private void sendNotification(){
+
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+
+        NotificationCompat.BigPictureStyle style = new NotificationCompat.BigPictureStyle();
+        style.bigPicture(b);
+
+        Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        String NOTIFICATION_CHANNEL_ID = "101";
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Notification", NotificationManager.IMPORTANCE_MAX);
+
+            //Configure Notification Channel
+            notificationChannel.setDescription("Game Notifications");
+            notificationChannel.enableLights(true);
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            notificationChannel.enableVibration(true);
+
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle(Config.title)
+                .setAutoCancel(true)
+                .setSound(defaultSound)
+                .setContentText(Config.content)
+                .setContentIntent(pendingIntent)
+                .setStyle(style)
+                .setLargeIcon(b)
+                .setWhen(System.currentTimeMillis())
+                .setPriority(Notification.PRIORITY_MAX);
+
+        notificationManager.notify(1, notificationBuilder.build());
+
+    }
 
 }
