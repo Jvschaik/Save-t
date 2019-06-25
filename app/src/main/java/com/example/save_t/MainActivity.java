@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         MyFirebaseMessagingService.getToken(this);
         Log.d(TAG, "From: " + MyFirebaseMessagingService.getToken(this));
 
-//        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-//        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
