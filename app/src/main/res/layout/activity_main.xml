@@ -14,7 +14,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D0021A"
+        android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
@@ -39,7 +39,10 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#A0A0A0"
+        android:background="#000000"
+
+        app:itemIconTint="@color/cardview_light_background"
+        app:itemTextColor="@color/cardview_light_background"
         app:menu="@menu/bottom_navigation"
         android:layout_alignParentBottom="true">
 
@@ -49,12 +52,8 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_below="@+id/toolbar">
     </FrameLayout>
-
-
-
 
 
 </RelativeLayout>

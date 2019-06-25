@@ -1,25 +1,15 @@
 package com.example.save_t;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.nfc.Tag;
-import android.os.Bundle;
 
-import android.util.AttributeSet;
+
+import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "From: " + MyFirebaseMessagingService.getToken(this));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
             @Override
