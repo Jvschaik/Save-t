@@ -1,6 +1,7 @@
 package com.example.save_t;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
         MyFirebaseMessagingService.getToken(this);
         Log.d(TAG, "From: " + MyFirebaseMessagingService.getToken(this));
 
-//        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-//        bottomNav.setOnNavigationItemSelectedListener(navListener);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
@@ -47,9 +46,19 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String newToken = instanceIdResult.getToken();
                 Log.e("newToken",newToken);
-
             }
         });
+
+        Log.e("CONFIG", Config.content);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.getString("incidentLocation") != null) {
+                Fragment ButtonsFragment = new DangerFragment();
+                ButtonsFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ButtonsFragment).commit();
+            }
+        }
 
     }
 

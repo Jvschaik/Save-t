@@ -9,9 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioAttributes;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -38,7 +40,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
-
         Map<String, String> data = remoteMessage.getData();
         Config.title = data.get("title");
         Config.content = data.get("content");
@@ -47,9 +48,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Config.longitude = data.get("longitude");
         Config.inhabitants = data.get("inhabitants");
 
+        Bundle args = new Bundle();
+        args.putString("title", remoteMessage.getData().get("title"));
+        args.putString("content", remoteMessage.getData().get("content"));
+        args.putString("fireSize", remoteMessage.getData().get("fireSize"));
+        args.putDouble("latitude", Double.parseDouble(remoteMessage.getData().get("latitude") ));
+        args.putDouble("longitude", Double.parseDouble(remoteMessage.getData().get("longitude") ));
+        args.putInt("inhabitants", Integer.parseInt(remoteMessage.getData().get("inhabitants")));
+        args.putString("incidentLocation", remoteMessage.getData().get("incidentLocation"));
+
         sendNotification();
 
         Intent dialogIntent = new Intent(this, MainActivity.class);
+        dialogIntent.putExtras(args);
         dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(dialogIntent);
 
@@ -72,40 +83,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.BigPictureStyle style = new NotificationCompat.BigPictureStyle();
         style.bigPicture(b);
 
-        Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
-
+        Intent activityIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, activityIntent,0 );
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "101";
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Notification", NotificationManager.IMPORTANCE_MAX);
+        Intent broadCastIntent = new Intent(this, NotificationReceiver.class);
+        broadCastIntent.putExtra("toastMessage", Config.title);
+        PendingIntent actionIntent = PendingIntent.getBroadcast(this, 1, broadCastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            //Configure Notification Channel
-            notificationChannel.setDescription("Game Notifications");
-            notificationChannel.enableLights(true);
-            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-            notificationChannel.enableVibration(true);
-
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+        Notification notification = new NotificationCompat.Builder(this, "101")
+                .setSmallIcon(R.drawable.logo)
                 .setContentTitle(Config.title)
-                .setAutoCancel(true)
-                .setSound(defaultSound)
                 .setContentText(Config.content)
-                .setContentIntent(pendingIntent)
-                .setStyle(style)
-                .setLargeIcon(b)
-                .setWhen(System.currentTimeMillis())
-                .setPriority(Notification.PRIORITY_MAX);
+                .setContentIntent(contentIntent)
+                .addAction(R.mipmap.ic_launcher, "BRANDWEER INLICHTEN", actionIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
 
-        notificationManager.notify(1, notificationBuilder.build());
+        notificationManager.notify(1, notification);
 
     }
 
