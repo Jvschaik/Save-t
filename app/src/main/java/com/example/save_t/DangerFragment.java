@@ -47,7 +47,7 @@ public class DangerFragment extends Fragment {
         room = getView().findViewById(R.id.incidentRoom);
         inhabitants = getView().findViewById(R.id.incidentInhabitants);
         room.setText(arguments.getString("incidentLocation"));
-        inhabitants.setText(String.valueOf(arguments.getInt("inhabitants")));
+        inhabitants.setText(arguments.getString("inhabitants"));
         btnNotify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,12 +60,19 @@ public class DangerFragment extends Fragment {
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url = "https://encjxnp5mdkx.x.pipedream.net";
+        String url = getString(R.string.save_t_api) + "/api/incidents";
+        Address address = new Address(
+                arguments.getString("street"),
+                arguments.getString("houseNumber"),
+                arguments.getString("postalCode"),
+                arguments.getString("city")
+        );
         final String mRequestBody = new SaveTDashboardModel()
-                                        .setAddress(arguments.getString("address"))
-                                        .setInhabitants(arguments.getInt("inhabitants"))
-                                        .setLongitude(arguments.getDouble("longitude"))
-                                        .setLatitude(arguments.getDouble("latitude"))
+                                        .setAddress(address)
+                                        .setInhabitants(arguments.getString("inhabitants"))
+                                        .setLongitude(arguments.getString("longitude"))
+                                        .setLatitude(arguments.getString("latitude"))
+                                        .setType(arguments.getString("type"))
                                         .toString();
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,

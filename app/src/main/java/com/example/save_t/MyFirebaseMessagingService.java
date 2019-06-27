@@ -43,18 +43,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
         Config.title = data.get("title");
         Config.content = data.get("content");
-        Config.fireSize = data.get("fireSize");
-        Config.latitude = data.get("latitude");
-        Config.longitude = data.get("longitude");
-        Config.inhabitants = data.get("inhabitants");
+
 
         Bundle args = new Bundle();
         args.putString("title", remoteMessage.getData().get("title"));
         args.putString("content", remoteMessage.getData().get("content"));
         args.putString("fireSize", remoteMessage.getData().get("fireSize"));
-        args.putDouble("latitude", Double.parseDouble(remoteMessage.getData().get("latitude") ));
-        args.putDouble("longitude", Double.parseDouble(remoteMessage.getData().get("longitude") ));
-        args.putInt("inhabitants", Integer.parseInt(remoteMessage.getData().get("inhabitants")));
+        args.putString("latitude", remoteMessage.getData().get("latitude"));
+        args.putString("longitude", remoteMessage.getData().get("longitude"));
+        args.putString("inhabitants", remoteMessage.getData().get("inhabitants"));
         args.putString("incidentLocation", remoteMessage.getData().get("incidentLocation"));
 
         sendNotification();

@@ -5,11 +5,11 @@ import com.google.gson.Gson;
 public class SaveTDashboardModel {
 
 
-    public String address;
+    public Address address;
     public int inhabitants;
     public Double longitude;
     public Double latitude;
-    public String incidentType;
+    public String type;
 
 
     @Override
@@ -19,7 +19,7 @@ public class SaveTDashboardModel {
         return json;
     }
 
-    public SaveTDashboardModel setAddress(String address) {
+    public SaveTDashboardModel setAddress(Address address) {
         this.address = address;
         return this;
     }
@@ -29,8 +29,18 @@ public class SaveTDashboardModel {
         return this;
     }
 
+    public SaveTDashboardModel setInhabitants(String inhabitants) {
+        this.inhabitants = Integer.parseInt(inhabitants);
+        return this;
+    }
+
     public SaveTDashboardModel setLongitude(Double longitude) {
         this.longitude = longitude;
+        return this;
+    }
+
+    public SaveTDashboardModel setLongitude(String longitude) {
+        this.longitude = Double.parseDouble(longitude);
         return this;
     }
 
@@ -39,8 +49,12 @@ public class SaveTDashboardModel {
         return this;
     }
 
-    public SaveTDashboardModel setIncidentType(String incidentType) {
-        this.incidentType = incidentType;
+    public SaveTDashboardModel setLatitude(String latitude) {
+        this.latitude = Double.parseDouble(latitude);
+        return this;
+    }
+    public SaveTDashboardModel setType(String type) {
+        this.type = type;
         return this;
     }
 }
