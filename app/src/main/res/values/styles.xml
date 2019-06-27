@@ -2,6 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimaryDark">@color/colorSecondary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -25,3 +29,5 @@
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
+
+
