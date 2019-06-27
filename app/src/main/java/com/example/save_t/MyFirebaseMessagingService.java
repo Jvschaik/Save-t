@@ -53,6 +53,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         args.putString("longitude", remoteMessage.getData().get("longitude"));
         args.putString("inhabitants", remoteMessage.getData().get("inhabitants"));
         args.putString("incidentLocation", remoteMessage.getData().get("incidentLocation"));
+        args.putString("street", remoteMessage.getData().get("street"));
+        args.putString("houseNumber", remoteMessage.getData().get("houseNumber"));
+        args.putString("postalCode", remoteMessage.getData().get("postalCode"));
+        args.putString("city", remoteMessage.getData().get("city"));
+        args.putString("type", remoteMessage.getData().get("type"));
 
         sendNotification();
 

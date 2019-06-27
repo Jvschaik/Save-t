@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Log.e("CONFIG", Config.content);
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.getString("incidentLocation") != null) {

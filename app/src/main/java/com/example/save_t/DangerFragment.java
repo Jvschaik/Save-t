@@ -1,6 +1,7 @@
 package com.example.save_t;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,7 @@ public class DangerFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
+                        Log.d("VOLLEY REQUEST", response);
                     }
                 },
                 new Response.ErrorListener() {
